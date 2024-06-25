@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Trip Advisor</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+          background-color: #f9f9f9;
+          align-items: center;
+          margin: 0;
+          padding: 0;
+        }
+
+        header {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 1rem 2rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+
+        .menu {
+            width: 30%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1rem;
+        }
+
+        .container {
+            max-width: 80rem;
+            background-color: white;
+            margin: 1rem auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .container p {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .gradient {
+            max-width: 85rem;
+            height: 10px;
+            background: linear-gradient(to right, #007bff, #49D5ff);
+            margin: 0 auto 1rem auto;
+        }
+
+        .day {
+            display: grid;
+            grid-template-columns: 20% 40% 30% 10%;
+        }
+
+        .day h2 {
+            margin-top: 1.5rem;
+        }
+
+        .adjustments {
+            height: 0px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-left: auto;
+            transition: height 1s ease;
+        }
+
+        .toggle-hours-day {
+            width: 80%;
+            display: grid;
+            grid-template-columns: 8% 14% 20% 43% 15%;
+            margin-left: auto;
+            margin-right: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .day-divider {
+            width: 100%;
+            height: 3px;
+            background-color: #78818E;
+            margin: 0 auto 1rem auto;
+        }
+
+        .time-select {
+            margin-right: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stop {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .stop-info {
+            width: 15%;
+            background-color: #D6D9DD;
+            margin: 0rem 1rem 1rem 1rem;
+            text-align: center;
+            padding-top: 0.5rem;
+            border-radius: 10px;
+        }
+
+        .stop-info h1 {
+            margin-bottom: 2rem;
+        }
+
+        .item {
+            width: 85%;
+        }
+
+        .item-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #007bff;
+            color: white;
+            padding: 0.5rem 1rem 0.5rem 1rem;
+            border-radius: 5px 5px 0px;
+        }
+
+        .item-heading h1 {
+            width: 75%;
+        }
+
+        .item-details {
+            width: 90%;
+            height: 3.5rem;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background-color: #00CED1;
+            color: white;
+            padding-right: 1rem;
+            padding-left: 1rem;
+            margin-left: auto;
+            border-bottom-left-radius: 5px;
+            transition: width 1s ease, height 1s ease;
+        }
+
+        .item-details-head {
+            display: grid;
+            grid-template-columns: 50% 50%;
+            margin-bottom: 1rem;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .info-text {
+            margin-bottom: auto;
+            text-align: left;
+        }
+
+        .description {
+            border: 2px solid white;
+            padding: 0rem 1rem 0rem 1rem;
+            font-size: 1rem;
+            margin-top: 1rem;
+            margin-right: 1rem;
+            margin-bottom: auto:
+        }
+
+        .image {
+            width: 35%;
+            border: 2px solid white;
+            padding: 1rem;
+            margin-left: auto;
+            margin-bottom: auto;
+        }
+
+        .item-options {
+            width: 80%;
+            height: 0.5rem;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            background-color: #6B00D1;
+            color: white;
+            padding: 0rem 2rem 0.25rem 2rem;
+            border-radius: 0px 0px 5px 5px;
+            margin-bottom: 1rem;
+            margin-left: auto;
+            transition: width 1s ease, height 1s ease;
+        }
+
+        .route {
+            width: 15%;
+            height: 2rem;
+            border-radius: 10px;
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+            background-color: red;
+            text-align: center;
+        }
+
+        .route h3 {
+            margin: 0.5rem 0 0 0;
+            color: white;
+        }
+
+        .stop-divider {
+            width: 85%;
+            height: 3px;
+            background-color: red;
+            margin-top: 1rem;
+            margin-left: 1rem;
+        }
+
+        .btn {
+            background-color: inherit;
+            color: white;
+            border: none;
+            padding: 0.5rem 0.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 0.5rem;
+        }
+
+        .btn1 {
+            height: 2rem;
+            color: black;
+            border: 1px solid #78818E;
+            margin-top: 1rem;
+        }
+
+        .btn1:hover {
+            background-color: #78818E;
+        }
+
+        .btn2 {
+            border: 1px ridge #0056b3;
+        }
+
+        .btn2:hover {
+            background-color: #0056b3;
+        }
+
+        .btn3 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #c283ff;
+        }
+
+        .btn3:hover {
+            background-color: #c283ff;
+        }
+
+        .toggle-hours-stop {
+            width: 80%;
+            display: grid;
+            grid-template-columns: 30% 40% 17%;
+        }
+
+        label {
+            margin-top: 1.5rem;
+        }
+
+        .range-input {
+            -webkit-appearance: none;
+            height: 8px;
+            outline: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+            margin-top: 1.8rem;
+            margin-right: 2rem;
+        }
+
+        .pink {
+            background: #c283ff;
+        }
+
+        .gray {
+            background: #78818E;
+        }
+
+        .range-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .range-input::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+        }
+
+        iframe {
+            width: 80%;
+            height: 25rem;
+            display: block;
+            border: 2px solid #49D5ff;
+            margin: 2rem auto;
+        }
+
+        .unscheduled {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <nav>
+        <h1>Vacation Planner</h1>
+        <div class="menu">
+            <a href="/">Home</a>
+            <a href="">About</a>
+            <a href="mailto:seantsullivan04@gmail.com">Contact</a>
+        </div>
+    </nav>
+</header>
+
+{% if error %}
+<div class="container">
+    <p style="color: red">{{ error_message }}</p>
+</div>
+{% endif %}
+
+<div class="container" style="text-align: center">
+    <p>{{ vacation.description }}</p>
+    <p>Your activities are automatically scheduled in the following order to minimize route times.</p>
+    <p>You can adjust the schedule details for each day and activity below.</p>
+</div>
+<div class="gradient"></div>
+
+{% for daily_route in vacation.daily_routes %}
+{% set day = loop %}
+<div class="container">
+    <div class="day">
+        <h1>Day {{ loop.index }}</h1>
+        <h2>Time frame: {{ vacation.schedule.days[day.index0].time_str }}</h2>
+        <h2>Time for Route: {{ vacation.schedule.days[day.index0].busy_hours }}</h2>
+        <button class="btn btn1" onclick="toggleAdjustments('adjustments-{{ day.index }}')">Adjust Day {{ loop.index
+            }}
+        </button>
+    </div>
+    <div class="adjustments" id="adjustments-{{ day.index }}">
+        <form class="toggle-hours-day" method="post" action="/route_details">
+            <label for="day-start">Start Time:</label>
+            <input type="time" id="day-start" name="day-start" min="07:00" max="18:00"
+                   value="{{ vacation.schedule.days[day.index0].start_str }}" class="time-select">
+            <label for="day-hours">Choose Hours for Day: <span id="range-value-day-{{ day.index }}">{{ vacation.schedule.days[day.index0].hours }}</span>h</label>
+            <input type="range" id="day-hours" name="day-hours" min="0" max="12" step=".25"
+                   value="{{ vacation.schedule.days[day.index0].hours }}" class="range-input gray"
+                   oninput="updateRangeValue('range-value-day-{{ day.index }}', this.value)">
+            <input type="hidden" id="adj_day" name="adj_day" value="{{ day.index0 }}">
+            <input class="btn btn1" type="submit" value="Adjust Schedule">
+        </form>
+        <form method="post" action="/route_details">
+            <input type="hidden" id="rm_day" name="rm_day" value="{{ day.index0 }}">
+            <input type="hidden" id="rm_day_check" name="rm_day_check" value="{{ vacation.schedule.num_days }}">
+            <input class="btn btn1" type="submit" value="Remove Day {{ day.index }}">
+        </form>
+    </div>
+    <div class="day-divider"></div>
+    {% for stop in daily_route %}
+    {% if vacation.daily_routes_trip_times[day.index0][loop.index0] != 0 %}
+    <div class="stop">
+        <div class="route"><h3>Travel time: {{ vacation.daily_routes_trip_times[day.index0][loop.index0] }}min</h3></div>
+        <div class="stop-divider"></div>
+    </div>
+    {% endif %}
+    <div class="stop">
+        <div class="stop-info">
+            <h1>Stop {{ loop.index }}:</h1>
+            <h1>{{ stop.time_str }}</h1>
+        </div>
+        <div class="item">
+            <div class="item-heading">
+                <h1>{{ stop.activity.name }}</h1>
+                <button class="btn btn2" id="btn-details-{{ stop.activity.name }}"
+                        onclick="toggleDetails('details-{{ stop.activity.name }}')">Show Details
+                </button>
+                <button class="btn btn2" id="btn-options-{{ stop.activity.name }}"
+                        onclick="toggleOptions('options-{{ stop.activity.name }}')">Show Options
+                </button>
+            </div>
+            <div class="item-details" id="details-{{ stop.activity.name }}">
+                <div class="item-details-head">
+                    <h2>Address: {{ stop.activity.address }}</h2>
+                    <h2>Suggested Time to Spend: {{ stop.activity.time_to_spend }}</h2>
+                </div>
+                <div>
+                    <div class="info">
+                        <div class="info-text">
+                            <h2>Type: {% for type in stop.activity.type %}<span> {{ type }} </span>{% endfor %}</h2>
+                            <div class="description">
+                                <p>{{ stop.activity.description }}</p>
+                            </div>
+                        </div>
+                        <img class="image" height="300" src="{{ stop.activity.image }}">
+                    </div>
+                </div>
+            </div>
+            <div class="item-options" id="options-{{ stop.activity.name }}">
+                <form class="toggle-hours-stop" method="post" action="/route_details">
+                    <label for="stop-hours">Choose Hours to Spend: <span id="range-value-{{ stop.activity.name }}">{{ stop.hours }}</span>hrs</label>
+                    <input type="range" id="stop-hours" name="stop-hours" min="0" max="8" step="0.25"
+                           value="{{ stop.hours }}" class="range-input pink"
+                           oninput="updateRangeValue('range-value-{{ stop.activity.name }}', this.value)">
+                    <input type="hidden" id="adj_stop" name="adj_stop" value="{{ stop.activity.name }}"/>
+                    <input class="btn btn3" type="submit" value="Adjust Schedule">
+                </form>
+
+                <form method="post" action="/route_details">
+                    <input type="hidden" id="rm_stop" name="rm_stop" value="{{ stop.activity.name }}"/>
+                    <input type="hidden" id="rm_stop_check" name="rm_stop_check"
+                           value="{{ vacation.route.stops|length }}">
+                    <input class="btn btn3" type="submit" value="Remove from Itinerary">
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% if daily_route|length != 0 %}
+    <iframe
+            referrerpolicy="no-referrer-when-downgrade"
+            src="{{ vacation.map_links[loop.index0] }}"
+            allowfullscreen>
+    </iframe>
+    {% endif %}
+    {% if daily_route|length > 1 %}
+    <div style="text-align: center">
+        <p>*** The displayed route time in the map above is subject to the current moment's traffic</p>
+    </div>
+    {% endif %}
+
+</div>
+<div class="gradient"></div>
+{% endfor %}
+{% if vacation.unvisited_stops|length > 0 %}
+
+<div class="container">
+    <div class="unscheduled">
+        <h1>Unscheduled Activities</h1>
+        <form method="post" action="/route_details">
+            <input type="hidden" id="add_day" name="add_day" value="True">
+            <input type="hidden" id="add_day_check" name="add_day_check" value="{{ vacation.schedule.num_days }}">
+            <input class="btn btn1" type="submit" value="Add Day to Trip">
+        </form>
+    </div>
+    <p>To include the following activities please adjust schedule to allow enough time to</p>
+    {% for stop in vacation.unvisited_stops %}
+    <div class="stop">
+        <div class="stop-info">
+            <h1>Stop {{ loop.index }}:</h1>
+            <h1>{{ stop.time_str }}</h1>
+        </div>
+        <div class="item">
+            <div class="item-heading">
+                <h1>{{ stop.activity.name }}</h1>
+                <button class="btn btn2" id="btn-details-{{ stop.activity.name }}"
+                        onclick="toggleDetails('details-{{ stop.activity.name }}')">Show Details
+                </button>
+                <button class="btn btn2" id="btn-options-{{ stop.activity.name }}"
+                        onclick="toggleOptions('options-{{ stop.activity.name }}')">Show Options
+                </button>
+            </div>
+            <div class="item-details" id="details-{{ stop.activity.name }}">
+                <div class="item-details-head">
+                    <h2>Address: {{ stop.activity.address }}</h2>
+                    <h2>Suggested Time to Spend: {{ stop.activity.time_to_spend }}</h2>
+                </div>
+                <div>
+                    <div class="info">
+                        <div class="info-text">
+                            <h2>Type: {% for type in stop.activity.type %}<span> {{ type }} </span>{% endfor %}</h2>
+                            <div class="description">
+                                <p>{{ stop.activity.description }}</p>
+                            </div>
+                        </div>
+                        <img class="image" height="300" src="{{ stop.activity.image }}">
+                    </div>
+                </div>
+            </div>
+            <div class="item-options" id="options-{{ stop.activity.name }}">
+                <form class="toggle-hours-stop" method="post" action="/route_details">
+                    <label for="stop-hours">Choose Hours to Spend: <span id="range-value-{{ stop.activity.name }}">{{ stop.hours }}</span>hrs</label>
+                    <input type="range" id="stop-hours" name="stop-hours" min="0" max="8" step="0.25"
+                           value="{{ stop.hours }}" class="range-input pink"
+                           oninput="updateRangeValue('range-value-{{ stop.activity.name }}', this.value)">
+                    <input type="hidden" id="adj_stop" name="adj_stop" value="{{ stop.activity.name }}"/>
+                    <input class="btn btn3" type="submit" value="Adjust Schedule">
+                </form>
+
+                <form method="post" action="/route_details">
+                    <input type="hidden" id="rm_stop" name="rm_stop" value="{{ stop.activity.name }}"/>
+                    <input type="hidden" id="rm_stop_check" name="rm_stop_check"
+                           value="{{ vacation.route.stops|length }}">
+                    <input class="btn btn3" type="submit" value="Remove from Itinerary">
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if vacation.unlocated_stops|length > 0 %}
+
+<div class="container">
+    <div class="unscheduled">
+        <h1>Unlocated Activities</h1>
+    </div>
+    <p>The following activities could not be located and thus can not be added to your trip.</p>
+    {% for stop in vacation.unlocated_stops %}
+    <div class="stop">
+        <div class="stop-info">
+            <h1>Stop {{ loop.index }}:</h1>
+            <h1>{{ stop.time_str }}</h1>
+        </div>
+        <div class="item">
+            <div class="item-heading">
+                <h1>{{ stop.activity.name }}</h1>
+                <button class="btn btn2" id="btn-details-{{ stop.activity.name }}"
+                        onclick="toggleDetails('details-{{ stop.activity.name }}')">Show Details
+                </button>
+                <button class="btn btn2" id="btn-options-{{ stop.activity.name }}"
+                        onclick="toggleOptions('options-{{ stop.activity.name }}')">Show Options
+                </button>
+            </div>
+            <div class="item-details" id="details-{{ stop.activity.name }}">
+                <div class="item-details-head">
+                    <h2>Address: {{ stop.activity.address }}</h2>
+                    <h2>Suggested Time to Spend: {{ stop.activity.time_to_spend }}</h2>
+                </div>
+                <div>
+                    <div class="info">
+                        <div class="info-text">
+                            <h2>Type: {% for type in stop.activity.type %}<span> {{ type }} </span>{% endfor %}</h2>
+                            <div class="description">
+                                <p>{{ stop.activity.description }}</p>
+                            </div>
+                        </div>
+                        <img class="image" height="300" src="{{ stop.activity.image }}">
+                    </div>
+                </div>
+            </div>
+            <div class="item-options" id="options-{{ stop.activity.name }}">
+                <form class="toggle-hours-stop" method="post" action="/route_details">
+                    <label for="stop-hours">Choose Hours to Spend: <span id="range-value-{{ stop.activity.name }}">{{ stop.hours }}</span>hrs</label>
+                    <input type="range" id="stop-hours" name="stop-hours" min="0" max="8" step="0.25"
+                           value="{{ stop.hours }}" class="range-input pink"
+                           oninput="updateRangeValue('range-value-{{ stop.activity.name }}', this.value)">
+                    <input type="hidden" id="adj_ul_stop" name="adj_ul_stop" value="{{ stop.activity.name }}"/>
+                    <input class="btn btn3" type="submit" value="Adjust Schedule">
+                </form>
+
+                <form method="post" action="/route_details">
+                    <input type="hidden" id="rm_ul_stop" name="rm_ul_stop" value="{{ stop.activity.name }}"/>
+                    <input type="hidden" id="rm_stop_check" name="rm_stop_check"
+                           value="{{ vacation.unlocated_stops|length }}">
+                    <input class="btn btn3" type="submit" value="Remove from Itinerary">
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<script>
+    function toggleAdjustments(id) {
+        var item = document.getElementById(id);
+        if (item.style.height != item.scrollHeight + "px"){
+            item.style.height = item.scrollHeight + "px";
+        } else {
+            item.style.height = "0px";
+        }
+    }
+    function toggleDetails(id) {
+        var item = document.getElementById(id);
+        var btn = document.getElementById("btn-" + id);
+        if (item.style.width == "95%"){
+            item.style.width = "90%";
+            item.style.height = "3.5rem";
+            btn.textContent = "Show Details";
+        } else {
+            item.style.width = "95%";
+            item.style.height = item.scrollHeight + "px";
+            btn.textContent = "Hide Details";
+        }
+    }
+    function toggleOptions(id) {
+        var item = document.getElementById(id);
+        var btn = document.getElementById("btn-" + id);
+        if (item.style.width == "85%"){
+            item.style.width = "80%";
+            item.style.height = "0.5rem";
+            btn.textContent = "Show Options";
+        } else {
+            item.style.width = "85%";
+            item.style.height = item.scrollHeight + "px";
+            btn.textContent = "Hide Options";
+        }
+    }
+    function updateRangeValue(id, value) {
+        document.getElementById(id).innerText = value;
+    }
+</script>
+</body>
+</html>

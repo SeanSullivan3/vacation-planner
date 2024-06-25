@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Advisor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f8f9fa;
+        }
+
+        header {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 1rem 2rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+
+        .menu {
+            width: 30%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1rem;
+        }
+
+        main {
+            width: 80%;
+            margin-top: 2rem;
+        }
+
+        .gradient {
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(to right, #007bff, #49D5ff);
+            margin-bottom: 1rem;
+        }
+
+        .collapse {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #007bff;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .collapse:hover {
+            background-color: #0056b3;
+        }
+
+        .collapse h1 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .rotate {
+            transform: rotate(180deg);
+            transition: transform 0.3s ease;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .item {
+            background-color: white;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .item p {
+            margin: 0.5rem 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .info h2 {
+            margin: 0 1rem 0 0;
+        }
+
+        .image {
+            width: 33%;
+            margin-left: auto;
+        }
+
+        .details {
+            text-align: left;
+        }
+
+        .description {
+            border: 2px solid #007bff;
+            padding: 1rem;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        .add-button {
+            text-align: center;
+            margin: 2rem;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .divider {
+            width: 100%;
+            height: 3px;
+            background: #78818E;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <h1>Vacation Planner</h1>
+        <div class="menu">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="mailto:seantsullivan04@gmail.com">Contact</a>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <section class="item">
+        <h1>
+            Select things to do in {{ city }}
+        </h1>
+        <div class="add-button">
+            <form method="post" action="/route_details">
+                <input type="submit" value="Submit"/>
+            </form>
+        </div>
+    </section>
+
+    {% if error %}
+    <div class="item">
+        <p style="color: red">
+            Please select at least one activity
+        </p>
+    </div>
+    {% endif %}
+
+    <div class="item">
+        <p>
+            Please select any number of the {{ things_to_do|length }} activities we found in {{ city }} that you wish to do!
+        </p>
+        <p>
+            To view the activities you have not yet chosen, click on "Things to do in {{ city }}" and press "Add to Itinerary" to select an activity.
+        </p>
+        <p>
+            When you are satisfied with your itinerary, press submit to move to the next stage of planning your trip.
+        </p>
+    </div>
+
+    <div class="gradient"></div>
+
+    <div class="collapse" id="collapse-unselected">
+        <h1>Things to do in {{ city }}</h1>
+        <i class="fas fa-chevron-down rotate" id="icon-unselected"></i>
+    </div>
+
+    <div class="hidden" id="unselected">
+        {% for thing in things_to_do %}
+        <div class="item">
+            <div class="container">
+                <div class="info">
+                    <div class="details">
+                        <h2>{{ thing.name }}</h2>
+                        <div>
+                            <div>Address: {{ thing.address }}</div>
+                            <div>Time to Spend: {{ thing.time_to_spend }}</div>
+                            <div>
+                                Type:
+                                {% for type in thing.type %}
+                                <span> {{ type }} </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <img class="image" height="300" src="{{ thing.image }}">
+                </div>
+                <div class="description">
+                    <p>{{ thing.description }}</p>
+                </div>
+            </div>
+            <div class="add-button">
+                <form method="post" action="/select_things_to_do">
+                    <input type="hidden" id="add_thing" name="add_thing" value="{{ thing.name }}"/>
+                    <input type="submit" value="Add to Itinerary"/>
+                </form>
+            </div>
+        </div>
+        <div class="divider"></div>
+        {% endfor %}
+    </div>
+
+    <div class="gradient"></div>
+
+    <div class="collapse" id="collapse-selected">
+        <h1>Your Chosen Activities</h1>
+        <i class="fas fa-chevron-down rotate" id="icon-selected"></i>
+    </div>
+
+    {% if chosen_things_to_do|length > 0 %}
+    <div id="selected">
+        {% for thing in chosen_things_to_do %}
+        <div class="item">
+            <div class="container">
+                <div class="info">
+                    <div class="details">
+                        <h2>{{ thing.name }}</h2>
+                        <div>
+                            <div>Address: {{ thing.address }}</div>
+                            <div>Time to Spend: {{ thing.time_to_spend }}</div>
+                            <div>
+                                Type:
+                                {% for type in thing.type %}
+                                <span> {{ type }} </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <img class="image" height="300" src="{{ thing.image }}">
+                </div>
+                <div class="description">
+                    <p>{{ thing.description }}</p>
+                </div>
+            </div>
+            <div class="add-button">
+                <form method="post" action="/select_things_to_do">
+                    <input type="hidden" id="rm_thing" name="rm_thing" value="{{ thing.name }}"/>
+                    <input type="submit" value="Remove from Itinerary"/>
+                </form>
+            </div>
+        </div>
+        <div class="divider"></div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</main>
+
+<script>
+    document.getElementById('collapse-unselected').addEventListener('click', function() {
+        var unselectedSection = document.getElementById('unselected');
+        unselectedSection.classList.toggle('hidden');
+        var icon = document.getElementById('icon-unselected');
+        if (icon.style.transform == "none"){
+            icon.style.transform = "rotate(180deg)";
+        } else {
+            icon.style.transform = "none";
+        }
+    });
+
+    document.getElementById('collapse-selected').addEventListener('click', function() {
+        var selectedSection = document.getElementById('selected');
+        selectedSection.classList.toggle('hidden');
+        var icon = document.getElementById('icon-selected');
+        if (icon.style.transform == "none"){
+            icon.style.transform = "rotate(180deg)";
+        } else {
+            icon.style.transform = "none";
+        }
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Trip Advisor</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+          background-color: #f9f9f9;
+          margin: 0;
+          padding: 0;
+        }
+
+        header {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 1rem 2rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+
+        .menu {
+            width: 30%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1rem;
+        }
+
+        h1 {
+          text-align: center;
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: 2rem;
+          margin-bottom: 2rem;
+        }
+
+        label {
+          font-size: 1.2rem;
+          font-weight: bold;
+          margin-bottom: 1rem;
+        }
+
+        input[type="text"] {
+          width: 100%;
+          max-width: 500px;
+          padding: 0.5rem;
+          font-size: 1.2rem;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
+
+        input[type="submit"] {
+          background-color: #007bff;
+          color: #fff;
+          padding: 0.5rem 1rem;
+          font-size: 1.2rem;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          margin-top: 1rem;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+          margin-bottom: 0.5rem;
+        }
+
+        p {
+          font-size: 1.2rem;
+        }
+
+        .container {
+          display: flex;
+          flex-flow: row wrap;
+        }
+
+        .city {
+
+          width: 200px;
+        }
+
+        .city_text {
+          font-weight: bold;
+          margin-bottom: 10px;
+        }
+
+        .error {
+            font-size: 1.2rem;
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <nav>
+        <h1>Vacation Planner</h1>
+        <div class="menu">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="mailto:seantsullivan04@gmail.com">Contact</a>
+        </div>
+    </nav>
+</header>
+
+<form method="post" action="/select_things_to_do">
+    <label>Select a city you would like to travel to:</label>
+    <input type="text" name="city" id="city" list="city_list" placeholder="Start typing for options.." required /><br />
+    <datalist id="city_list">
+        {% for city in city_list %}
+        <option>{{ city }}</option>
+        {% endfor %}
+    </datalist>
+    <input type="submit" value="Submit" />
+</form>
+
+{% if error %}
+<div class="error">
+    ** {{ city }} is not a valid option
+</div>
+{% endif %}
+
+
+</body>
+</html>
