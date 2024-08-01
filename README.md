@@ -10,6 +10,11 @@ This README file will contain:
 ## How Vacation Planner Works
 
 This web application is a fullstack software engineering project with focus on front-end design in HTML, webscraping techniques in Python, and algorithmic programming with graph theory. Here is a little bit about what I did to put this project together...
+* How it works:
+  * This application webscrapes https://travel.usnews.com/ for data on a user-chosen city.
+  * With this application's intuitive and interactive HTML web service, the user has full control when chosing activities to do.
+  * Custom built python algorithms utilize the google maps API to plan optimal routes through all user-chosen activites.
+  * The application then autonomously provides an optimal and informative schedule for the user's vacation allowing for user adjustment.
 
 ### Front-end Design and Flask
 
