@@ -16,19 +16,18 @@ This web application is a fullstack software engineering project with focus on f
   * Custom built python algorithms utilize the google maps API to plan optimal routes through all user-chosen activites.
   * The application then autonomously provides an optimal and informative schedule for the user's vacation allowing for user adjustment.
 
-### Front-end Design and Flask
+## Skills I Learned
 
-This project uses the Flask web framework to build our web application within a single Python file: [run_flask.py](run_flask.py). ...
-
-### Webscraping
-
-The data for all of the destinations and each's activities are webscraped from https://travel.usnews.com/destinations. ...
-
-### Route Optimization
-
-The Route is optimized with ...
+  * Webscraping in Python
+  * HTML + CSS + JS web design
+  * Implementing greedy algorithms + applications in graph theory
+  * Utilizing the google maps API
+  * Flask + jinja framework
 
 ## Run Instructions
 
+Coming soon...
+
 ## DEMO
 
+Coming soon...
